@@ -45,10 +45,6 @@
             background-color: #333; /* Fondo gris oscuro */
             width: 100%;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            overflow-x: auto; /* Permitir el desplazamiento horizontal si es necesario */
         }
 
         table {
@@ -64,19 +60,24 @@
             word-wrap: break-word; /* Permitirá que las celdas se ajusten mejor */
         }
 
-        th {
-            background-color: #666; /* Gris oscuro */
-            color: white;
-            border-bottom: 2px solid #FFD700; /* Dorado */
-            text-transform: uppercase;
-            font-weight: 600;
-        }
+        /* Encabezados de la tabla con colores */
+        th.smash { background-color: #FF5733; color: white; } /* Naranja */
+        th.bandeja { background-color: #006400; color: white; } /* Verde oscuro */
+        th.volea { background-color: #3375FF; color: white; } /* Azul */
+        th.defensa { background-color: #808080; color: white; } /* Gris */
+        th.servicio { background-color: #800080; color: white; } /* Morado */
+        th.recursos { background-color: #FF4500; color: white; } /* Naranja más oscuro */
+        th.reves { background-color: #00BFFF; color: white; } /* Azul claro */
+        th.promedio { background-color: #FFD700; color: white; } /* Dorado */
 
-        td {
-            background-color: #444;
-            border: 1px solid #FFD700; /* Dorado */
-            color: white;
-        }
+        /* Celdas de la tabla con colores correspondientes */
+        td.smash { background-color: #FF7F50; } /* Naranja */
+        td.bandeja { background-color: #228B22; } /* Verde oscuro */
+        td.volea { background-color: #6495ED; } /* Azul */
+        td.defensa { background-color: #D3D3D3; } /* Gris */
+        td.servicio { background-color: #8A2BE2; } /* Morado */
+        td.recursos { background-color: #FF6347; } /* Naranja más oscuro */
+        td.reves { background-color: #1E90FF; } /* Azul claro */
 
         td input, td select {
             width: 90%; /* Ajuste para mayor visibilidad */
@@ -131,11 +132,12 @@
 
             table {
                 font-size: 0.9rem;
+                border-spacing: 0;
             }
 
             th, td {
                 font-size: 1rem; /* Tamaño de fuente más pequeño en pantallas pequeñas */
-                padding: 10px; /* Menos espacio en pantallas pequeñas */
+                padding: 8px; /* Menos espacio en pantallas pequeñas */
             }
 
             td input, td select {
@@ -147,6 +149,42 @@
                 justify-content: center;
                 margin-bottom: 10px;
             }
+
+            /* Convertir la tabla en tarjetas en pantallas móviles */
+            table {
+                display: block;
+                overflow-x: hidden; /* Evitar el desbordamiento horizontal */
+            }
+
+            .table-container {
+                padding: 5px;
+            }
+
+            tr {
+                display: block;
+                margin-bottom: 20px;
+            }
+
+            th, td {
+                display: block;
+                text-align: left;
+                width: 100%;
+                padding: 8px 0;
+            }
+
+            td {
+                padding-left: 15px;
+            }
+
+            td input, td select {
+                font-size: 1rem;
+                padding: 8px;
+                margin: 5px 0;
+            }
+
+            .average {
+                font-size: 1.1rem;
+            }
         }
 
         @media screen and (max-width: 480px) {
@@ -155,8 +193,21 @@
                 padding: 5px;
             }
 
-            .table-container {
-                overflow-x: scroll; /* Permite desplazamiento horizontal */
+            th, td {
+                font-size: 0.9rem; /* Reducir fuente aún más en pantallas más pequeñas */
+                padding: 6px; /* Reducir espacio en celdas */
+            }
+
+            .flag-container {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .average {
+                font-size: 1rem;
+                font-weight: bold;
+                text-align: center;
             }
         }
     </style>
@@ -176,21 +227,21 @@
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Smash</th>
-                        <th>Bandeja</th>
-                        <th>Volea</th>
-                        <th>Defensa</th>
-                        <th>Servicio</th>
-                        <th>Recursos</th>
-                        <th>Revés</th>
-                        <th>Promedio</th>
+                        <th class="smash">Smash</th>
+                        <th class="bandeja">Bandeja</th>
+                        <th class="volea">Volea</th>
+                        <th class="defensa">Defensa</th>
+                        <th class="servicio">Servicio</th>
+                        <th class="recursos">Recursos</th>
+                        <th class="reves">Revés</th>
+                        <th class="promedio">Promedio</th>
                     </tr>
                 </thead>
                 <tbody id="player-table">
                     <!-- Jugadores -->
                     <tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -214,7 +265,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -238,7 +289,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -262,7 +313,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -283,7 +334,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -304,7 +355,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -313,7 +364,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -323,9 +374,9 @@
                             </select>
                         </td>
                         <td class="average">80</td>
-<tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+ <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -349,7 +400,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -373,7 +424,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -397,7 +448,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -418,7 +469,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -439,7 +490,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -448,7 +499,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -457,9 +508,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -483,7 +534,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -507,7 +558,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -531,7 +582,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -552,7 +603,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -573,7 +624,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -582,7 +633,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -591,9 +642,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -617,7 +668,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -641,7 +692,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -665,7 +716,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -686,7 +737,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -707,7 +758,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -716,7 +767,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -725,9 +776,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -751,7 +802,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -775,7 +826,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -799,7 +850,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -820,7 +871,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -841,7 +892,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -850,7 +901,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -859,9 +910,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -885,7 +936,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -909,7 +960,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -933,7 +984,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -954,7 +1005,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -975,7 +1026,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -984,7 +1035,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -993,9 +1044,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1019,7 +1070,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1043,7 +1094,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1067,7 +1118,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1088,7 +1139,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1109,7 +1160,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1118,7 +1169,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1127,9 +1178,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1153,7 +1204,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1177,7 +1228,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1201,7 +1252,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1222,7 +1273,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1243,7 +1294,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1252,7 +1303,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1261,9 +1312,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1287,7 +1338,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1311,7 +1362,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1335,7 +1386,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1356,7 +1407,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1377,7 +1428,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1386,7 +1437,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1395,9 +1446,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1421,7 +1472,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1445,7 +1496,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1469,7 +1520,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1490,7 +1541,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1511,7 +1562,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1520,7 +1571,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1529,9 +1580,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1555,7 +1606,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1579,7 +1630,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1603,7 +1654,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1624,7 +1675,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1645,7 +1696,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1654,7 +1705,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1663,9 +1714,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1689,7 +1740,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1713,7 +1764,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1737,7 +1788,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1758,7 +1809,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1779,7 +1830,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1788,7 +1839,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1797,9 +1848,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1823,7 +1874,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1847,7 +1898,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1871,7 +1922,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1892,7 +1943,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -1913,7 +1964,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1922,7 +1973,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -1931,9 +1982,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1957,7 +2008,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -1981,7 +2032,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -2005,7 +2056,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -2026,7 +2077,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -2047,7 +2098,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -2056,7 +2107,7 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -2065,9 +2116,9 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="average">80</td><tr>
-                        <td><input type="text" value="Maurício" /></td>
-                        <td class="edit-cell">
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -2091,7 +2142,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="bandeja edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -2115,7 +2166,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="volea edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="80">80</option>
                                 <option value="81">81</option>
@@ -2139,7 +2190,7 @@
                                 <option value="99">99</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="defensa edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -2160,7 +2211,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="servicio edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="75">75</option>
                                 <option value="76">76</option>
@@ -2181,7 +2232,7 @@
                                 <option value="91">91</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="recursos edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -2190,7 +2241,275 @@
                                 <option value="5">5</option>
                             </select>
                         </td>
-                        <td class="edit-cell">
+                        <td class="reves edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                                <option value="92">92</option>
+                                <option value="93">93</option>
+                                <option value="94">94</option>
+                                <option value="95">95</option>
+                                <option value="96">96</option>
+                                <option value="97">97</option>
+                                <option value="98">98</option>
+                                <option value="99">99</option>
+                            </select>
+                        </td>
+                        <td class="bandeja edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                                <option value="92">92</option>
+                                <option value="93">93</option>
+                                <option value="94">94</option>
+                                <option value="95">95</option>
+                                <option value="96">96</option>
+                                <option value="97">97</option>
+                                <option value="98">98</option>
+                                <option value="99">99</option>
+                            </select>
+                        </td>
+                        <td class="volea edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                                <option value="92">92</option>
+                                <option value="93">93</option>
+                                <option value="94">94</option>
+                                <option value="95">95</option>
+                                <option value="96">96</option>
+                                <option value="97">97</option>
+                                <option value="98">98</option>
+                                <option value="99">99</option>
+                            </select>
+                        </td>
+                        <td class="defensa edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="75">75</option>
+                                <option value="76">76</option>
+                                <option value="77">77</option>
+                                <option value="78">78</option>
+                                <option value="79">79</option>
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                            </select>
+                        </td>
+                        <td class="servicio edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="75">75</option>
+                                <option value="76">76</option>
+                                <option value="77">77</option>
+                                <option value="78">78</option>
+                                <option value="79">79</option>
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                            </select>
+                        </td>
+                        <td class="recursos edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td class="reves edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td class="average">80</td> <tr>
+                        <td><input type="text" value="Jugador" /></td>
+                        <td class="smash edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                                <option value="92">92</option>
+                                <option value="93">93</option>
+                                <option value="94">94</option>
+                                <option value="95">95</option>
+                                <option value="96">96</option>
+                                <option value="97">97</option>
+                                <option value="98">98</option>
+                                <option value="99">99</option>
+                            </select>
+                        </td>
+                        <td class="bandeja edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                                <option value="92">92</option>
+                                <option value="93">93</option>
+                                <option value="94">94</option>
+                                <option value="95">95</option>
+                                <option value="96">96</option>
+                                <option value="97">97</option>
+                                <option value="98">98</option>
+                                <option value="99">99</option>
+                            </select>
+                        </td>
+                        <td class="volea edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                                <option value="92">92</option>
+                                <option value="93">93</option>
+                                <option value="94">94</option>
+                                <option value="95">95</option>
+                                <option value="96">96</option>
+                                <option value="97">97</option>
+                                <option value="98">98</option>
+                                <option value="99">99</option>
+                            </select>
+                        </td>
+                        <td class="defensa edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="75">75</option>
+                                <option value="76">76</option>
+                                <option value="77">77</option>
+                                <option value="78">78</option>
+                                <option value="79">79</option>
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                            </select>
+                        </td>
+                        <td class="servicio edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="75">75</option>
+                                <option value="76">76</option>
+                                <option value="77">77</option>
+                                <option value="78">78</option>
+                                <option value="79">79</option>
+                                <option value="80">80</option>
+                                <option value="81">81</option>
+                                <option value="82">82</option>
+                                <option value="83">83</option>
+                                <option value="84">84</option>
+                                <option value="85">85</option>
+                                <option value="86">86</option>
+                                <option value="87">87</option>
+                                <option value="88">88</option>
+                                <option value="89">89</option>
+                                <option value="90">90</option>
+                                <option value="91">91</option>
+                            </select>
+                        </td>
+                        <td class="recursos edit-cell">
+                            <select onchange="updateAverage(this)">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td class="reves edit-cell">
                             <select onchange="updateAverage(this)">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
