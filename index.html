@@ -371,8 +371,32 @@
 
         <div class="input-container">
             <div>
-                <label>Nombre del Jugador:</label>
-                <input type="text" id="jugador" placeholder="Nombre del Jugador" />
+                <label>Seleccionar Jugador:</label>
+                <select id="jugador" onchange="updateTable()">
+                    <option value="Maurício">Maurício</option>
+                    <option value="Kleber">Kleber</option>
+                    <option value="Roberto">Roberto</option>
+                    <option value="Rorro">Rorro</option>
+                    <option value="Fran">Fran</option>
+                    <option value="Azahel">Azahel</option>
+                    <option value="Mauro">Mauro</option>
+                    <option value="Cristian">Cristian</option>
+                    <option value="Amilcar">Amilcar</option>
+                    <option value="Fabian">Fabian</option>
+                    <option value="Vicente">Vicente</option>
+                    <option value="Diego Gael">Diego Gael</option>
+                    <option value="Jaramillo">Jaramillo</option>
+                    <option value="Chino">Chino</option>
+                    <option value="Emiliano">Emiliano</option>
+                    <option value="Huerta">Huerta</option>
+                    <option value="Estuardo">Estuardo</option>
+                    <option value="Óscar">Óscar</option>
+                    <option value="Lauro">Lauro</option>
+                    <option value="Jesús G">Jesús G</option>
+                    <option value="Rodo">Rodo</option>
+                    <option value="Emi">Emi</option>
+                    <option value="Dona">Dona</option>
+                </select>
             </div>
             <div>
                 <label>Smash:</label>
@@ -463,6 +487,11 @@
                     <option value="88">88</option>
                     <option value="89">89</option>
                     <option value="90">90</option>
+                    <option value="91">91</option>
+                    <option value="92">92</option>
+                    <option value="93">93</option>
+                    <option value="94">94</option>
+                    <option value="95">95</option>
                 </select>
             </div>
             <div>
@@ -479,6 +508,11 @@
                     <option value="88">88</option>
                     <option value="89">89</option>
                     <option value="90">90</option>
+                    <option value="91">91</option>
+                    <option value="92">92</option>
+                    <option value="93">93</option>
+                    <option value="94">94</option>
+                    <option value="95">95</option>
                 </select>
             </div>
             <div>
@@ -515,6 +549,15 @@
                     <option value="88">88</option>
                     <option value="89">89</option>
                     <option value="90">90</option>
+                    <option value="91">91</option>
+                    <option value="92">92</option>
+                    <option value="93">93</option>
+                    <option value="94">94</option>
+                    <option value="95">95</option>
+                    <option value="96">96</option>
+                    <option value="97">97</option>
+                    <option value="98">98</option>
+                    <option value="99">99</option>
                 </select>
             </div>
         </div>
@@ -566,6 +609,9 @@
 
             jugadores.push(nuevoJugador);
             history.push({ action: "add", jugador: nuevoJugador });
+
+            // Deshabilitar la opción seleccionada
+            disablePlayerOption(jugador);
 
             updateTable();
         }
@@ -626,13 +672,33 @@
                 tdGlobos.textContent = jugador.globos;
                 tr.appendChild(tdGlobos);
 
-                const tdMedia = document.createElement("td");
-                tdMedia.textContent = calcularPromedio(jugador);
-                tdMedia.classList.add("average");
-                tr.appendChild(tdMedia);
+                const tdPromedio = document.createElement("td");
+                tdPromedio.textContent = calcularPromedio(jugador);
+                tdPromedio.classList.add("average");
+                tr.appendChild(tdPromedio);
 
                 tableBody.appendChild(tr);
             });
+        }
+
+        // Función para deshabilitar la opción de un jugador
+        function disablePlayerOption(jugador) {
+            const playerSelect = document.getElementById("jugador");
+            for (let i = 0; i < playerSelect.options.length; i++) {
+                if (playerSelect.options[i].value === jugador) {
+                    playerSelect.options[i].disabled = true;
+                }
+            }
+        }
+
+        // Función para habilitar la opción de un jugador
+        function enablePlayerOption(jugador) {
+            const playerSelect = document.getElementById("jugador");
+            for (let i = 0; i < playerSelect.options.length; i++) {
+                if (playerSelect.options[i].value === jugador) {
+                    playerSelect.options[i].disabled = false;
+                }
+            }
         }
 
         // Función para deshacer la última acción
@@ -640,11 +706,13 @@
             if (history.length > 0) {
                 const lastAction = history.pop();
                 if (lastAction.action === "add") {
-                    jugadores.pop();  // Eliminar el último jugador agregado
+                    jugadores.pop(); // Eliminar el último jugador agregado
+                    enablePlayerOption(lastAction.jugador.jugador); // Habilitar la opción del jugador
                     updateTable();
                 }
             }
         }
     </script>
+
 </body>
 </html>
