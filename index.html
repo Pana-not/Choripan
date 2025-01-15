@@ -618,8 +618,13 @@
 
         // Función para calcular el promedio (sin incluir recursos ni revés)
         function calcularPromedio(jugador) {
-            const total = jugador.smash + jugador.bandeja + jugador.volea + jugador.defensa + jugador.servicio + jugador.globos;
-            return (total / 6).toFixed(2); // Promedio de las 6 estadísticas
+            // Bonificación especial para recursos y revés
+            const recursosBonificado = jugador.recursos === 5 ? 2.0 : jugador.recursos;
+            const revesBonificado = jugador.reves === 5 ? 2.0 : jugador.reves;
+
+            // Calcular promedio
+            const total = jugador.smash + jugador.bandeja + jugador.volea + jugador.defensa + jugador.servicio + jugador.globos + recursosBonificado + revesBonificado;
+            return ((total) / 6).toFixed(2); // Promedio de las 6 estadísticas
         }
 
         // Función para actualizar la tabla
