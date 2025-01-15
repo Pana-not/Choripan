@@ -364,7 +364,7 @@
         }
     </style>
 </head>
-<body>
+<body> 
     <div class="container">
         <h1>Tabla de Jugadores</h1>
 
@@ -620,16 +620,18 @@
             const total = jugador.smash + jugador.bandeja + jugador.volea + jugador.defensa + jugador.servicio + jugador.globos;
             let promedio = (total / 6).toFixed(2); // Promedio de las 6 estadísticas
 
-            // Bonificación según "Recursos" o "Revés"
-            const bonificacion = calcularBonificacion(jugador.recursos, jugador.reves);
-            promedio = (parseFloat(promedio) + bonificacion).toFixed(2);
+           // Bonificación separada para "Recursos" y "Revés"
+            const bonificacionRecursos = calcularBonificacionRecursos(jugador.recursos);
+            const bonificacionReves = calcularBonificacionReves(jugador.reves);
+            
+            promedio = (parseFloat(promedio) + bonificacionRecursos + bonificacionReves).toFixed(2);
             
             return promedio;
         }
 
-        // Función para calcular la bonificación
-        function calcularBonificacion(recursos, reves) {
-            const bonificaciones = {
+        // Función para calcular la bonificación por "Recursos"
+        function calcularBonificacionRecursos(recursos) {
+            const bonificacionesRecursos = {
                 5: 2.0,
                 4: 1.5,
                 3: 1.0,
@@ -637,7 +639,20 @@
                 1: 0.50
             };
 
-            return Math.max(bonificaciones[recursos] || 0, bonificaciones[reves] || 0);
+            return bonificacionesRecursos[recursos] || 0;
+        }
+
+        // Función para calcular la bonificación por "Revés"
+        function calcularBonificacionReves(reves) {
+            const bonificacionesReves = {
+                5: 2.0,
+                4: 1.5,
+                3: 1.0,
+                2: 0.75,
+                1: 0.50
+            };
+
+            return bonificacionesReves[reves] || 0;
         }
 
         // Función para actualizar la tabla
@@ -731,5 +746,4 @@
             }
         }
     </script>
-</body>
 </html>
