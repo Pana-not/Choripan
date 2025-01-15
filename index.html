@@ -56,7 +56,7 @@
 
         th, td {
             padding: 15px;
-            font-size: 1.2rem; /* Aumento de tamaño de fuente */
+            font-size: 8.2rem; /* Aumento de tamaño de fuente */
             word-wrap: break-word; /* Permitirá que las celdas se ajusten mejor */
         }
 
@@ -123,11 +123,11 @@
         /* Diseño responsivo */
         @media screen and (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 1rem;
             }
 
             .table-container {
-                padding: 10px;
+                padding: 20px;
             }
 
             table {
@@ -136,7 +136,7 @@
             }
 
             th, td {
-                font-size: 1rem; /* Tamaño de fuente más pequeño en pantallas pequeñas */
+                font-size: 1 rem; /* Tamaño de fuente más pequeño en pantallas pequeñas */
                 padding: 8px; /* Menos espacio en pantallas pequeñas */
             }
 
@@ -183,7 +183,7 @@
             }
 
             .average {
-                font-size: 1.1rem;
+                font-size: 0.7rem;
             }
         }
 
@@ -258,7 +258,7 @@
             text-align: center;
             color: #FFD700; /* Dorado */
             margin-bottom: 20px;
-            font-size: 1.5rem;
+            font-size: 0.8rem;
         }
 
         .input-container {
@@ -296,7 +296,7 @@
             border: none;
             color: #1f1f1f;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1.0rem;
             border-radius: 5px;
             transition: background-color 0.3s ease;
             width: 100%;
@@ -305,64 +305,69 @@
         button:hover {
             background-color: #e5c100;
         }
-
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.6rem;  /* Fuente más pequeña */
-        }
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
 
-        th, td {
-            padding: 3px 5px;  /* Menor espacio en las celdas */
-            border: 1px solid #555;
-            font-size: 0.6rem;  /* Fuente más pequeña */
-        }
+th, td {
+    padding: 3px 5px;  /* Menor espacio en las celdas */
+    border: 1px solid #555;
+    font-size: 1.5rem;
+}
 
-        th {
-            background-color: #444;
-            color: #FFD700;
-            font-weight: bold;
-        }
+th {
+    background-color: #444;
+    color: #FFD700;
+    font-weight: bold;
+}
 
-        td {
-            background-color: #222;
-            color: #fff;
-        }
+td {
+    background-color: #222; /* Fondo negro */
+    color: #C0C0C0; /* Letras plateadas */
+}
 
-        .average {
-            font-weight: bold;
-            color: #28a745;
-        }
+td:nth-child(10) {  /* Última columna (Promedio) */
+    background-color: #222; /* Fondo negro */
+    color: #FFD700; /* Letras doradas */
+}
 
-        .undo-container {
-            margin-top: 15px;
-            text-align: center;
-        }
+.average {
+    font-weight: bold;
+    color: #FFD700; /* Color dorado para el promedio */
+}
 
-        .undo-container button {
-            background-color: #dc3545;
-            padding: 6px 12px;
-            font-size: 0.9rem;
-        }
+.undo-container {
+    margin-top: 15px;
+    text-align: center;
+}
 
-        .undo-container button:hover {
-            background-color: #c82333;
-        }
+.undo-container button {
+    background-color: #dc3545;
+    padding: 6px 12px;
+    font-size: 1.5rem;
+}
 
-        @media screen and (max-width: 768px) {
-            .input-container {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+.undo-container button:hover {
+    background-color: #c82333;
+}
 
-        @media screen and (max-width: 480px) {
-            .input-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+@media screen and (max-width: 768px) {
+    .input-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .input-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
 </head>
 <body> 
     <div class="container">
@@ -400,6 +405,11 @@
             <div>
                 <label>Smash:</label>
                 <select id="smash" onchange="updateTable()">
+<option value="75">75</option>
+<option value="76">76</option>
+<option value="77">77</option>
+<option value="78">78</option>
+<option value="79">79</option>
                     <option value="80">80</option>
                     <option value="81">81</option>
                     <option value="82">82</option>
@@ -425,6 +435,11 @@
             <div>
                 <label>Bandeja:</label>
                 <select id="bandeja" onchange="updateTable()">
+<option value="75">75</option>
+<option value="76">76</option>
+<option value="77">77</option>
+<option value="78">78</option>
+<option value="79">79</option>
                     <option value="80">80</option>
                     <option value="81">81</option>
                     <option value="82">82</option>
@@ -450,6 +465,11 @@
             <div>
                 <label>Volea:</label>
                 <select id="volea" onchange="updateTable()">
+<option value="75">75</option>
+<option value="76">76</option>
+<option value="77">77</option>
+<option value="78">78</option>
+<option value="79">79</option>
                     <option value="80">80</option>
                     <option value="81">81</option>
                     <option value="82">82</option>
@@ -475,6 +495,11 @@
             <div>
                 <label>Defensa:</label>
                 <select id="defensa" onchange="updateTable()">
+<option value="75">75</option>
+<option value="76">76</option>
+<option value="77">77</option>
+<option value="78">78</option>
+<option value="79">79</option>
                     <option value="80">80</option>
                     <option value="81">81</option>
                     <option value="82">82</option>
@@ -496,6 +521,11 @@
             <div>
                 <label>Servicio:</label>
                 <select id="servicio" onchange="updateTable()">
+<option value="75">75</option>
+<option value="76">76</option>
+<option value="77">77</option>
+<option value="78">78</option>
+<option value="79">79</option>
                     <option value="80">80</option>
                     <option value="81">81</option>
                     <option value="82">82</option>
@@ -517,26 +547,29 @@
             <div>
                 <label>Recursos:</label>
                 <select id="recursos" onchange="updateTable()">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value=" 1💎"> 💎</option>
+                    <option value=" 2💎 💎"> 💎 💎</option>
+                    <option value=" 3💎 💎 💎"> 💎 💎 💎</option>
                 </select>
             </div>
             <div>
                 <label>Revés:</label>
                 <select id="reves" onchange="updateTable()">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="1⭐">⭐</option>
+                    <option value="2⭐⭐">⭐⭐</option>
+                    <option value="3⭐⭐⭐">⭐⭐⭐</option>
+                    <option value="4⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+                    <option value="5⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
                 </select>
             </div>
             <div>
                 <label>Globos:</label>
                 <select id="globos" onchange="updateTable()">
+<option value="75">75</option>
+<option value="76">76</option>
+<option value="77">77</option>
+<option value="78">78</option>
+<option value="79">79</option>
                     <option value="80">80</option>
                     <option value="81">81</option>
                     <option value="82">82</option>
@@ -618,7 +651,7 @@
         // Función para calcular el promedio (sin incluir recursos ni revés)
         function calcularPromedio(jugador) {
             const total = jugador.smash + jugador.bandeja + jugador.volea + jugador.defensa + jugador.servicio + jugador.globos;
-            let promedio = (total / 6).toFixed(2); // Promedio de las 6 estadísticas
+            let promedio = (total / 6.12).toFixed(2); // Promedio de las 6.12 estadísticas
 
            // Bonificación separada para "Recursos" y "Revés"
             const bonificacionRecursos = calcularBonificacionRecursos(jugador.recursos);
@@ -632,11 +665,9 @@
         // Función para calcular la bonificación por "Recursos"
         function calcularBonificacionRecursos(recursos) {
             const bonificacionesRecursos = {
-                5: 2.0,
-                4: 1.5,
-                3: 1.0,
-                2: 0.75,
-                1: 0.50
+                 3: 2.0,
+                 2: 1.0,
+                 1: 0.75
             };
 
             return bonificacionesRecursos[recursos] || 0;
@@ -645,10 +676,10 @@
         // Función para calcular la bonificación por "Revés"
         function calcularBonificacionReves(reves) {
             const bonificacionesReves = {
-                5: 2.0,
-                4: 1.5,
-                3: 1.0,
-                2: 0.75,
+                5: 3.0,
+                4: 2.0,
+                3: 1.5,
+                2: 1.0,
                 1: 0.50
             };
 
